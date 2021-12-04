@@ -1,11 +1,11 @@
 fun main() {
     fun part1(input: List<Int>): Int {
-        return input.windowed(2).count() { (a, b) -> (b > a) }
+        return input.windowed(2).count { (a, b) -> (b > a) }
     }
 
     fun part2(input: List<Int>): Int {
-        return input.windowed(4).count() { (a, b, c, d) -> (a+b+c < b+c+d) }
-        // return input.windowed(4).count() { it[0] < it[3] }
+        return input.windowed(4).count { (a, b, c, d) -> (a+b+c < b+c+d) }
+        // return input.windowed(4).count { it[0] < it[3] }
     }
 
     // test if implementation meets criteria from the description, like:
