@@ -1,15 +1,4 @@
 fun main() {
-    fun dec(input: String): Int {
-        var result = 0
-        for(bit in input) {
-            result = result shl 1 or (if (bit == '1') 1 else 0)
-        }
-        return result
-    }
-
-    /**
-     * Find the most common [bit] value in the [input].
-     */
     fun mostCommon(input: List<String>, bit: Int): Int {
         val zeros = input.count { it[bit] == '0' }
         return if (zeros > input.size / 2) 0 else 1
@@ -28,7 +17,7 @@ fun main() {
             result = result.filter { it[bit] == bitToCompareWith }
             if (result.size == 1)
             {
-                return dec(result[0])
+                return Integer.parseInt(result[0], 2)
             }
         }
 
