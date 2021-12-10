@@ -20,7 +20,6 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day${day}_test")
-
     check(part1(testInput) == 4512)
     check(part2(testInput) == 1924)
 
@@ -57,7 +56,7 @@ fun getBoards(input: List<String>): List<Board> {
 fun playGame(draws: List<Int>, boards: List<Board>): List<Board> {
     val winningBoards = mutableListOf<Board>()
     draws.forEach { number ->
-        boards.filter { !it.isWinner() }.forEach { board ->
+        boards.filterNot { it.isWinner() }.forEach { board ->
             if (board.play(number)) {
                 winningBoards.add(board)
             }
@@ -107,13 +106,11 @@ class Board {
     }
 
     private fun columnComplete(column: Int): Boolean {
-        val result = getColumn(column).map { it.marked }.distinct()
-        return result.size == 1 && result[0]
+        return getColumn(column).all { it.marked }
     }
 
     private fun rowComplete(row: Int): Boolean {
-        val result = getRow(row).map { it.marked }.distinct()
-        return result.size == 1 && result[0]
+        return getRow(row).all { it.marked }
     }
 
     private fun checkWinning(): Boolean {
@@ -126,7 +123,7 @@ class Board {
         return false
     }
 
-    fun sum(): Int = numbers.sumOf { row -> row.filter { !it.marked }.sumOf { it.number } }
+    fun sum(): Int = numbers.sumOf { row -> row.filterNot { it.marked }.sumOf { it.number } }
 
     override fun toString(): String {
         return numbers.joinToString("\n") { row -> row.joinToString(" ") { if (it.marked) "*" else "${it.number}" } }
